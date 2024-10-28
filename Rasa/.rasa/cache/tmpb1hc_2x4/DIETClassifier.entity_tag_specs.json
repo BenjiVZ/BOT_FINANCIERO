@@ -1,0 +1,28 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-cantidad",
+      "2": "I-cantidad",
+      "3": "L-cantidad",
+      "4": "U-cantidad",
+      "5": "B-categoria",
+      "6": "I-categoria",
+      "7": "L-categoria",
+      "8": "U-categoria",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-cantidad": 1,
+      "I-cantidad": 2,
+      "L-cantidad": 3,
+      "U-cantidad": 4,
+      "B-categoria": 5,
+      "I-categoria": 6,
+      "L-categoria": 7,
+      "U-categoria": 8,
+      "O": 0
+    },
+    "num_tags": 9
+  }
+]

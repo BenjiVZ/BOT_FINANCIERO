@@ -1,0 +1,142 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hola
+    - buenos días
+    - buenas tardes
+    - buenas noches
+    - hey
+    - qué tal
+    - saludos
+    - hola qué tal
+    - qué hay
+    - cómo estás
+    - qué onda
+    - hola buenos días
+    - hola buenas tardes
+    - hola buenas noches
+
+- intent: goodbye
+  examples: |
+    - adiós
+    - hasta luego
+    - nos vemos
+    - hasta pronto
+    - chao
+    - bye
+    - que tengas buen día
+    - nos vemos pronto
+    - hasta la próxima
+    - cuídate
+    - me despido
+    - hasta mañana
+
+- intent: affirm
+  examples: |
+    - sí
+    - claro
+    - por supuesto
+    - efectivamente
+    - así es
+    - correcto
+    - exacto
+    - está bien
+    - me parece bien
+    - adelante
+    - ok
+    - vale
+
+- intent: deny
+  examples: |
+    - no
+    - para nada
+    - en absoluto
+    - nunca
+    - no me parece
+    - no quiero
+    - no es correcto
+    - no está bien
+    - negativo
+    - ni pensarlo
+    - de ninguna manera
+
+- intent: mood_great
+  examples: |
+    - perfecto
+    - genial
+    - increíble
+    - me siento muy bien
+    - maravilloso
+    - estoy muy bien
+    - estoy genial
+    - estoy increíble
+    - me siento de maravilla
+    - súper contento
+    - excelente
+    - fantástico
+    - mejor imposible
+    - todo va de maravilla
+
+- intent: mood_unhappy
+  examples: |
+    - mi día fue horrible
+    - estoy triste
+    - no me siento muy bien
+    - estoy decepcionado
+    - súper triste
+    - estoy muy triste
+    - triste
+    - muy triste
+    - infeliz
+    - mal
+    - no muy bien
+    - fatal
+    - pésimo
+    - terrible
+
+- intent: bot_challenge
+  examples: |
+    - ¿eres un bot?
+    - ¿eres humano?
+    - ¿estoy hablando con un bot?
+    - ¿estoy hablando con una persona?
+    - ¿eres una máquina?
+    - ¿eres un asistente virtual?
+    - ¿esto es un bot?
+
+- intent: registrar_ingreso
+  examples: |
+    - Este mes tuve un ingreso de [7000](cantidad)
+    - Mis ingresos de este mes son de [5000](cantidad)
+    - Tuve un ingreso de [12000](cantidad)
+    - Recibí [3000](cantidad) de ingresos
+    - Gané [8000](cantidad) este mes
+    - Me pagaron [6000](cantidad)
+    - Ingresé [4500](cantidad)
+    - Deposité [9000](cantidad)
+
+- intent: registrar_gasto
+  examples: |
+    - Gasto de [2000](cantidad) en [marketing](categoria)
+    - He gastado [1500](cantidad) en [mercancía](categoria)
+    - Pagué [1000](cantidad) en [electricidad](categoria)
+    - Gasté [500](cantidad) en [alimentos](categoria)
+    - Compré [300](cantidad) en [material](categoria)
+    - Invertí [2500](cantidad) en [publicidad](categoria)
+    - Tuve un gasto de [800](cantidad) en [transporte](categoria)
+    - Desembolsé [1200](cantidad) en [suministros](categoria)
+    
+- intent: solicitar_resumen
+  examples: |
+    - ¿Cuál es mi balance este mes?
+    - Dame un resumen de mis ingresos y gastos
+    - ¿Cuánto tengo disponible este mes?
+    - ¿Qué sugerencias de ahorro me puedes dar?
+    - Muéstrame mi estado financiero
+    - ¿Cómo van mis finanzas?
+    - Necesito ver mis cuentas
+    - ¿Podrías mostrarme un resumen de mis gastos?
+    - ¿En qué he gastado este mes?
+    - Quiero ver mi balance actual

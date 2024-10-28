@@ -1,0 +1,7 @@
+{
+  "rule_only_slots": [
+    "cantidad",
+    "categoria"
+  ],
+  "rule_only_loops": []
+}

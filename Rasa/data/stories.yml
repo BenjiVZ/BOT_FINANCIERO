@@ -1,0 +1,94 @@
+version: "3.1"
+
+stories:
+
+- story: camino feliz  # happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: camino triste 1  # sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: camino triste 2  # sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: registrar un ingreso
+  steps:
+  - intent: registrar_ingreso
+  - action: action_registrar_ingreso
+  - action: utter_confirm_ingreso
+
+- story: registrar un gasto
+  steps:
+  - intent: registrar_gasto
+  - action: action_registrar_gasto
+  - action: utter_confirm_gasto
+
+- story: solicitar resumen
+  steps:
+  - intent: solicitar_resumen
+  - action: action_solicitar_resumen
+  - action: utter_resumen
+
+# Historias adicionales sugeridas:
+
+- story: registro ingreso y solicitud de resumen
+  steps:
+  - intent: registrar_ingreso
+  - action: action_registrar_ingreso
+  - action: utter_confirm_ingreso
+  - intent: solicitar_resumen
+  - action: action_solicitar_resumen
+  - action: utter_resumen
+  - action: utter_sugerencia_ahorro
+
+- story: registro gasto y solicitud de resumen
+  steps:
+  - intent: registrar_gasto
+  - action: action_registrar_gasto
+  - action: utter_confirm_gasto
+  - intent: solicitar_resumen
+  - action: action_solicitar_resumen
+  - action: utter_resumen
+  - action: utter_sugerencia_ahorro
+
+- story: saludo y consulta de resumen
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: solicitar_resumen
+  - action: action_solicitar_resumen
+  - action: utter_resumen
+
+- story: desafío del bot
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - intent: solicitar_resumen
+  - action: action_solicitar_resumen
+  - action: utter_resumen
+
+- story: despedida después de resumen
+  steps:
+  - intent: solicitar_resumen
+  - action: action_solicitar_resumen
+  - action: utter_resumen
+  - intent: goodbye
+  - action: utter_goodbye

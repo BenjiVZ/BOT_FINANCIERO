@@ -1,0 +1,48 @@
+version: "3.1"
+
+rules:
+
+- rule: Despedirse cuando el usuario dice adiós  # Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Confirmar que es un bot cuando el usuario pregunta  # Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+# Reglas adicionales sugeridas
+
+- rule: Validar cantidad negativa en ingreso
+  steps:
+  - slot_was_set:
+      - cantidad: -1  # Esta condición será evaluada en una acción personalizada
+  - action: action_validar_cantidad
+
+- rule: Validar cantidad negativa en gasto
+  steps:
+  - slot_was_set:
+      - cantidad: -1  # Esta condición será evaluada en una acción personalizada
+  - action: action_validar_cantidad
+
+- rule: Validar categoría no reconocida
+  steps:
+  - slot_was_set:
+      - categoria: null
+  - action: utter_categoria_invalida
+
+- rule: Sugerir ahorro cuando los gastos superan el 80% de los ingresos
+  steps:
+  - action: action_validar_gastos_ratio  # Realiza la verificación en una acción personalizada
+  - action: utter_sugerencia_ahorro
+
+- rule: Activar ayuda en cualquier momento
+  steps:
+  - intent: ayuda
+  - action: utter_help_message
+
+- rule: Reiniciar conversación
+  steps:
+  - intent: reiniciar
+  - action: action_restart
