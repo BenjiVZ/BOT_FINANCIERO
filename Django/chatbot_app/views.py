@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,8 +6,32 @@ from django.db.models import Sum
 import requests
 import json
 from django.db.models.functions import TruncMonth
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import TransaccionSerializer
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
+import logging
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Transaccion, Categoria, Ingreso, InformeMensual, Cuenta
+from django.db.models import Sum
+import requests
+import json
+from django.db.models.functions import TruncMonth
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import TransaccionSerializer, CuentaSerializer
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
+import logging
 
+logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 def index(request):
     # Información de la empresa
@@ -85,6 +108,7 @@ def chat_bot(request):
             }, status=500)
             
         except Exception as e:
+            logger.error(f"Error en chat_bot: {str(e)}")
             return JsonResponse({
                 'status': 'error',
                 'message': str(e)
@@ -94,3 +118,129 @@ def chat_bot(request):
         'status': 'error',
         'message': 'Método no permitido'
     }, status=405)
+
+@api_view(['GET', 'POST'])
+def create_expense(request):
+    if request.method == 'POST':
+        logger.info(f"Received data for create_expense: {request.data}")
+        serializer = TransaccionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Gasto registrado exitosamente."}, status=status.HTTP_201_CREATED)
+        else:
+            error_messages = []
+            for field, errors in serializer.errors.items():
+                error_messages.append(f"{field}: {', '.join(errors)}")
+            logger.error(f"Validation errors in create_expense: {error_messages}")
+            return Response({"message": "Error al registrar el gasto.", "errors": error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        return Response({"message": "GET request successful"}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def check_budget(request):
+    try:
+        total_ingresos = Ingreso.objects.aggregate(total=Sum('monto'))['total'] or 0
+        total_gastos = Transaccion.objects.aggregate(total=Sum('monto'))['total'] or 0
+        presupuesto_actual = total_ingresos - total_gastos
+        return Response({"presupuesto_actual": presupuesto_actual})
+    except Exception as e:
+        logger.error(f"Error in check_budget: {str(e)}")
+        return Response({"error": "Error al obtener el presupuesto"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def generate_report(request):
+    try:
+        fecha_actual = timezone.now().date()
+        fecha_inicio = fecha_actual - relativedelta(months=1)
+        
+        gastos = Transaccion.objects.filter(fecha__gte=fecha_inicio, fecha__lte=fecha_actual)
+        total_gastos = gastos.aggregate(total=Sum('monto'))['total'] or 0
+        
+        gastos_por_categoria = gastos.values('categoria__nombre').annotate(total=Sum('monto'))
+        
+        reporte = {
+            "total_gastos": total_gastos,
+            "gastos_por_categoria": list(gastos_por_categoria)
+        }
+        
+        return Response({"reporte": reporte})
+    except Exception as e:
+        logger.error(f"Error in generate_report: {str(e)}")
+        return Response({"error": "Error al generar el reporte"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def consultar_saldo(request, numero_cuenta):
+    try:
+        cuenta = Cuenta.objects.get(numero_cuenta=numero_cuenta)
+        return Response({
+            "saldo": str(cuenta.saldo),
+            "moneda": cuenta.moneda
+        })
+    except Cuenta.DoesNotExist:
+        return Response(
+            {"error": "Cuenta no encontrada"}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+@api_view(['GET'])
+def consultar_estado_cuenta(request, numero_cuenta):
+    try:
+        cuenta = Cuenta.objects.get(numero_cuenta=numero_cuenta)
+        transacciones = cuenta.transacciones.all().order_by('-fecha')[:10]
+        
+        data = {
+            "numero_cuenta": cuenta.numero_cuenta,
+            "saldo_actual": str(cuenta.saldo),
+            "moneda": cuenta.moneda,
+            "ultimas_transacciones": [
+                {
+                    "fecha": t.fecha.strftime('%Y-%m-%d %H:%M'),
+                    "tipo": t.tipo,
+                    "monto": str(t.monto),
+                    "descripcion": t.descripcion
+                } for t in transacciones
+            ]
+        }
+        return Response(data)
+    except Cuenta.DoesNotExist:
+        return Response(
+            {"error": "Cuenta no encontrada"}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+@api_view(['GET'])
+def convertir_moneda(request):
+    try:
+        monto = float(request.GET.get('monto', 0))
+        moneda_origen = request.GET.get('de', 'USD')
+        moneda_destino = request.GET.get('a', 'USD')
+        
+        # Aquí deberías integrar una API de conversión real
+        # Este es un ejemplo simplificado
+        tasas = {
+            'USD': 1.0,
+            'EUR': 0.85,
+            'MXN': 20.0,
+            'PEN': 3.70
+        }
+        
+        if moneda_origen not in tasas or moneda_destino not in tasas:
+            return Response(
+                {"error": "Moneda no soportada"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        resultado = monto * (tasas[moneda_destino] / tasas[moneda_origen])
+        
+        return Response({
+            "monto_original": monto,
+            "moneda_origen": moneda_origen,
+            "monto_convertido": round(resultado, 2),
+            "moneda_destino": moneda_destino
+        })
+    except Exception as e:
+        logger.error(f"Error en conversión de moneda: {str(e)}")
+        return Response(
+            {"error": "Error en la conversión"}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )

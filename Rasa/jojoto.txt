@@ -1,0 +1,16 @@
+Consultas básicas:
+"¿Cuál es mi saldo?"
+"Mostrar estado de cuenta"
+"Ver historial de gastos"
+Registro de gastos:
+"Quiero registrar un gasto"
+"Anotar un nuevo gasto"
+"Agregar gasto"
+Interacciones generales:
+"Hola"
+"¿Qué puedes hacer?"
+"Necesito ayuda"
+"¿Eres un bot?"
+Comandos de control:
+"Reiniciar conversación"
+"Adiós"

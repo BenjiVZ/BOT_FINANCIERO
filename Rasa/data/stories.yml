@@ -1,94 +1,55 @@
 version: "3.1"
 
 stories:
-
-- story: camino feliz  # happy path
+- story: consultar saldo
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+    - intent: consultar_saldo
+    - action: action_consultar_saldo
 
-- story: camino triste 1  # sad path 1
+- story: consultar estado cuenta
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+    - intent: consultar_estado_cuenta
+    - action: action_consultar_estado_cuenta
 
-- story: camino triste 2  # sad path 2
+- story: ver historial
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+    - intent: ver_historial
+    - action: action_ver_historial
 
-- story: registrar un ingreso
+- story: saludar y despedirse
   steps:
-  - intent: registrar_ingreso
-  - action: action_registrar_ingreso
-  - action: utter_confirm_ingreso
+    - intent: greet
+    - action: utter_greet
+    - intent: goodbye
+    - action: utter_goodbye
 
-- story: registrar un gasto
+- story: registrar gasto
   steps:
-  - intent: registrar_gasto
-  - action: action_registrar_gasto
-  - action: utter_confirm_gasto
+    - intent: register_expense
+    - action: expense_form
+    - active_loop: expense_form
+    - active_loop: null
+    - action: action_save_expense
+    - action: utter_confirm_expense
+    - action: action_validar_gastos_ratio
+    - action: utter_sugerencia_ahorro
 
-- story: solicitar resumen
+- story: consultar funciones del bot
   steps:
-  - intent: solicitar_resumen
-  - action: action_solicitar_resumen
-  - action: utter_resumen
+    - intent: bot_functions
+    - action: utter_bot_functions
 
-# Historias adicionales sugeridas:
-
-- story: registro ingreso y solicitud de resumen
+- story: solicitar ayuda
   steps:
-  - intent: registrar_ingreso
-  - action: action_registrar_ingreso
-  - action: utter_confirm_ingreso
-  - intent: solicitar_resumen
-  - action: action_solicitar_resumen
-  - action: utter_resumen
-  - action: utter_sugerencia_ahorro
+    - intent: ayuda
+    - action: utter_help_message
 
-- story: registro gasto y solicitud de resumen
+- story: reiniciar conversacion
   steps:
-  - intent: registrar_gasto
-  - action: action_registrar_gasto
-  - action: utter_confirm_gasto
-  - intent: solicitar_resumen
-  - action: action_solicitar_resumen
-  - action: utter_resumen
-  - action: utter_sugerencia_ahorro
+    - intent: reiniciar
+    - action: action_restart
 
-- story: saludo y consulta de resumen
+- story: confirmar bot
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: solicitar_resumen
-  - action: action_solicitar_resumen
-  - action: utter_resumen
-
-- story: desafío del bot
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
-  - intent: solicitar_resumen
-  - action: action_solicitar_resumen
-  - action: utter_resumen
-
-- story: despedida después de resumen
-  steps:
-  - intent: solicitar_resumen
-  - action: action_solicitar_resumen
-  - action: utter_resumen
-  - intent: goodbye
-  - action: utter_goodbye
+    - intent: bot_challenge
+    - action: utter_iamabot

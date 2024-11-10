@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Conversión de Moneda -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Conversión de Moneda</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'conversion_moneda' %}">
+                {% csrf_token %}
+                {{ conversion_form.as_p }}
+                <button type="submit" class="btn btn-primary">Realizar Conversión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Consulta de Saldo -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Consulta de Saldo</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'consulta_saldo' %}">
+                {% csrf_token %}
+                {{ saldo_form.as_p }}
+                <button type="submit" class="btn btn-success">Consultar Saldo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Estado de Cuenta -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Estado de Cuenta</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'estado_cuenta' %}">
+                {% csrf_token %}
+                {{ estado_cuenta_form.as_p }}
+                <button type="submit" class="btn btn-info">Generar Estado</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Historial de Transacciones -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Historial de Transacciones</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'historial_transacciones' %}">
+                {% csrf_token %}
+                {{ historial_form.as_p }}
+                <button type="submit" class="btn btn-secondary">Ver Historial</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,51 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_validar_gastos_ratio\"}}]": "utter_sugerencia_ahorro",
+      "[{\"prev_action\": {\"action_name\": \"action_validar_gastos_ratio\"}}, {\"prev_action\": {\"action_name\": \"utter_sugerencia_ahorro\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"utter_categoria_invalida\"}, \"slots\": {\"categoria\": \"should_not_be_set\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_validar_cantidad\"}, \"slots\": {\"cantidad\": [1.0, 0.0]}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}]": "utter_goodbye",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"user\": {\"intent\": \"goodbye\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}]": "utter_iamabot",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iamabot\"}, \"user\": {\"intent\": \"bot_challenge\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"register_expense\"}}]": "expense_form",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"register_expense\"}}, {\"active_loop\": {\"name\": \"expense_form\"}, \"prev_action\": {\"action_name\": \"expense_form\"}, \"user\": {\"intent\": \"register_expense\"}}]": "action_listen",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"expense_form\"}}]": "action_save_expense",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"expense_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_save_expense\"}}]": "utter_confirm_expense",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"expense_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_save_expense\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_confirm_expense\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"reiniciar\"}}]": "action_restart",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"reiniciar\"}}, {\"prev_action\": {\"action_name\": \"action_restart\"}, \"user\": {\"intent\": \"reiniciar\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ayuda\"}}]": "utter_help_message",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ayuda\"}}, {\"prev_action\": {\"action_name\": \"utter_help_message\"}, \"user\": {\"intent\": \"ayuda\"}}]": "action_listen"
+    },
+    "rule_only_slots": [
+      "cantidad"
+    ],
+    "rule_only_loops": [
+      "expense_form"
+    ],
+    "rules_for_loop_unhappy_path": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"expense_form\"}, \"prev_action\": {\"action_name\": \"expense_form\"}, \"user\": {\"intent\": \"register_expense\"}}]": "do_not_predict_loop_action"
+    },
+    "rules_not_in_stories": [
+      "predicting default action with intent restart",
+      "handling active loops and forms - expense_form",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"user\": {\"intent\": \"goodbye\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iamabot\"}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_validar_cantidad\"}, \"slots\": {\"cantidad\": [1.0, 0.0]}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ayuda\"}}, {\"prev_action\": {\"action_name\": \"utter_help_message\"}, \"user\": {\"intent\": \"ayuda\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_validar_gastos_ratio\"}}, {\"prev_action\": {\"action_name\": \"utter_sugerencia_ahorro\"}}]",
+      "predicting default action with intent session_start",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"reiniciar\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_validar_gastos_ratio\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"utter_categoria_invalida\"}, \"slots\": {\"categoria\": \"should_not_be_set\"}}]",
+      "handling active loops and forms - expense_form - action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"reiniciar\"}}, {\"prev_action\": {\"action_name\": \"action_restart\"}, \"user\": {\"intent\": \"reiniciar\"}}]",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ayuda\"}}]"
+    ]
+  }
+}

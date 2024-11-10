@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="db.sqlite3" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3092"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="auth_user_user_permissions" custom_title="0" dock_id="1" table="4,26:mainauth_user_user_permissions"/><dock_state state="000000ff00000000fd0000000100000002000002bb0000020cfc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000000002bb0000012300ffffff0000028a0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="auth_group" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="auth_user_user_permissions" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="52"/><column index="3" value="89"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="chatbot_app_cuenta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="98"/><column index="3" value="47"/><column index="4" value="54"/><column index="5" value="69"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">-- Inserciones para la tabla chatbot_app_categoria
+INSERT OR IGNORE INTO chatbot_app_categoria (nombre, descripcion) VALUES
+('Alimentación', 'Gastos relacionados con comida y restaurantes'),
+('Transporte', 'Gastos de transporte público y gasolina'),
+('Entretenimiento', 'Gastos relacionados con actividades de ocio'),
+('Salud', 'Gastos médicos y farmacéuticos'),
+('Educación', 'Gastos relacionados con estudios y formación'),
+('Vivienda', 'Gastos de alquiler, hipoteca y servicios públicos'),
+('Ahorro', 'Dinero destinado a ahorros e inversiones'),
+('Otros', 'Gastos diversos no clasificados en otras categorías');
+
+-- Inserciones para la tabla chatbot_app_cuenta
+INSERT OR IGNORE INTO chatbot_app_cuenta (usuario_id, numero_cuenta, saldo, moneda) VALUES
+(1, '1234567890', 5000.00, 'USD'),
+(2, '9876543210', 2500.00, 'EUR'),
+(3, '1112223334', 7500.00, 'USD'),
+(4, '4445556667', 3000.00, 'EUR'),
+(5, '7778889990', 10000.00, 'USD'),
+(6, '0001112223', 1500.00, 'EUR'),
+(7, '3334445556', 6000.00, 'USD'),
+(8, '6667778889', 2000.00, 'EUR');
+
+-- Inserciones para la tabla chatbot_app_transaccion
+INSERT OR IGNORE INTO chatbot_app_transaccion (cuenta_id, categoria_id, tipo, monto, fecha, descripcion, moneda_origen, moneda_destino, tasa_conversion) VALUES
+(1, 1, 'DEPOSITO', 1500.00, '2024-11-07 10:00:00', 'Depósito inicial', NULL, NULL, NULL),
+(1, 2, 'RETIRO', 200.00, '2024-11-06 09:00:00', 'Retiro en efectivo', NULL, NULL, NULL),
+(2, 3, 'DEPOSITO', 500.00, '2024-11-05 11:00:00', 'Depósito de entretenimiento', NULL, NULL, NULL),
+(3, 4, 'RETIRO', 100.00, '2024-11-04 12:00:00', 'Retiro para salud', NULL, NULL, NULL),
+(4, 5, 'DEPOSITO', 300.00, '2024-11-03 13:00:00', 'Depósito para educación', NULL, NULL, NULL),
+(5, 6, 'RETIRO', 250.00, '2024-11-02 14:00:00', 'Retiro para vivienda', NULL, NULL, NULL),
+(6, 7, 'DEPOSITO', 400.00, '2024-11-01 15:00:00', 'Depósito para ahorro', NULL, NULL, NULL),
+(7, 8, 'RETIRO', 150.00, '2024-10-31 16:00:00', 'Retiro para otros gastos', NULL, NULL, NULL);
+
+-- Inserciones para la tabla chatbot_app_presupuesto
+INSERT OR IGNORE INTO chatbot_app_presupuesto (categoria_id, limite, gastado) VALUES
+(1, 3000.00, 1500.00),
+(2, 1000.00, 200.00),
+(3, 800.00, 500.00),
+(4, 500.00, 100.00),
+(5, 1200.00, 300.00),
+(6, 1500.00, 250.00),
+(7, 2000.00, 400.00),
+(8, 700.00, 150.00);
+
+-- Inserciones para la tabla chatbot_app_ingreso
+INSERT OR IGNORE INTO chatbot_app_ingreso (cuenta_id, fuente, monto, fecha, descripcion) VALUES
+(1, 'Salario', 3000.00, '2024-11-05 08:00:00', 'Salario mensual'),
+(2, 'Freelance', 500.00, '2024-11-04 14:00:00', 'Pago por proyecto'),
+(3, 'Inversiones', 1000.00, '2024-11-03 10:00:00', 'Ganancias de inversiones'),
+(4, 'Venta de activos', 2000.00, '2024-11-02 12:00:00', 'Venta de propiedades'),
+(5, 'Herencia', 5000.00, '2024-11-01 14:00:00', 'Herencia recibida'),
+(6, 'Premio', 1500.00, '2024-10-30 16:00:00', 'Premio de lotería'),
+(7, 'Regalo', 750.00, '2024-10-29 18:00:00', 'Regalo de cumpleaños'),
+(8, 'Reembolso', 300.00, '2024-10-28 20:00:00', 'Reembolso de gastos');
+
+-- Inserciones para la tabla chatbot_app_informemensual
+INSERT OR IGNORE INTO chatbot_app_informemensual (cuenta_id, mes, ingresos_totales, gastos_totales, balance) VALUES
+(1, '2024-11-01', 3000.00, 1700.00, 1300.00),
+(2, '2024-10-01', 500.00, 100.00, 400.00),
+(3, '2024-09-01', 1000.00, 800.00, 200.00),
+(4, '2024-08-01', 2000.00, 1500.00, 500.00),
+(5, '2024-07-01', 5000.00, 2000.00, 3000.00),
+(6, '2024-06-01', 1500.00, 1000.00, 500.00),
+(7, '2024-05-01', 750.00, 500.00, 250.00),
+(8, '2024-04-01', 300.00, 200.00, 100.00);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

@@ -3,14 +3,12 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
-  - registrar_ingreso
-  - registrar_gasto
-  - solicitar_resumen
+  - consultar_saldo
+  - consultar_estado_cuenta
+  - ver_historial
+  - register_expense
+  - bot_functions
   - ayuda
   - reiniciar
 
@@ -19,80 +17,55 @@ entities:
   - categoria
 
 slots:
-  ingresos:
-    type: float
-    initial_value: 0.0
-    mappings:
-      - type: from_entity
-        entity: cantidad
-
-  gastos:
-    type: list
-    initial_value: []
-    mappings:
-      - type: from_entity
-        entity: categoria
-
   cantidad:
     type: float
     mappings:
-      - type: from_entity
-        entity: cantidad
-
+      - type: from_text
   categoria:
     type: text
     mappings:
-      - type: from_entity
-        entity: categoria
+      - type: from_text
+
+forms:
+  expense_form:
+    required_slots:
+      - cantidad
+      - categoria
 
 responses:
-  utter_cantidad_invalida:
-    - text: "Lo siento, la cantidad no puede ser negativa. Por favor, ingresa un valor válido."
-
-  utter_categoria_invalida:
-    - text: "No reconozco esa categoría. Las categorías válidas son: marketing, mercancía, electricidad, etc."
-
-  utter_help_message:
-    - text: "Puedo ayudarte a: \n- Registrar ingresos\n- Registrar gastos\n- Mostrar resumen financiero\n- Dar sugerencias de ahorro"
-  
-  utter_confirm_ingreso:
-    - text: "He registrado tu ingreso de ${cantidad}."
-
-  utter_confirm_gasto:
-    - text: "He registrado un gasto de ${cantidad} en la categoría {categoria}."
-
-  utter_resumen:
-    - text: "Tu balance actual es de ${balance}. Has gastado ${total_gastos} este mes."
-
-  utter_sugerencia_ahorro:
-    - text: "Para mejorar tus ahorros, intenta reducir los gastos en la categoría {categoria_sugerida}."
-
   utter_greet:
-    - text: "¡Hola! ¿Cómo estás?"
-
-  utter_cheer_up:
-    - text: "Aquí hay algo para animarte:"
-      image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-    - text: "¿Te ayudó eso?"
-
-  utter_happy:
-    - text: "¡Excelente, continúa así!"
+    - text: "¡Hola! Soy tu asistente financiero. ¿En qué puedo ayudarte?"
 
   utter_goodbye:
-    - text: "¡Hasta luego!"
+    - text: "¡Hasta luego! Que tengas un excelente día."
 
   utter_iamabot:
-    - text: "Soy un bot, desarrollado con Rasa."
+    - text: "Soy un asistente virtual financiero."
+
+  utter_help_message:
+    - text: "Puedo ayudarte con las siguientes funciones:\n- Consultar saldo\n- Ver estado de cuenta\n- Registrar gastos\n- Ver historial de transacciones"
+
+  utter_bot_functions:
+    - text: "Estas son mis funciones principales:\n- Consultar saldo\n- Ver estado de cuenta\n- Registrar gastos\n- Ver historial de transacciones"
+
+  utter_ask_cantidad:
+    - text: "¿Cuál es el monto del gasto?"
+
+  utter_ask_categoria:
+    - text: "¿En qué categoría deseas registrar el gasto? (Alimentación, Transporte, Entretenimiento, etc.)"
+
+  utter_confirm_expense:
+    - text: "Gasto registrado correctamente."
+
+  utter_sugerencia_ahorro:
+    - text: "Has superado el 80% de tu presupuesto mensual. Te sugiero revisar tus gastos."
 
 actions:
-  - action_validar_cantidad
+  - action_consultar_saldo
+  - action_consultar_estado_cuenta
+  - action_ver_historial
+  - action_save_expense
   - action_validar_gastos_ratio
-  - action_registrar_ingreso
-  - action_registrar_gasto
-  - action_solicitar_resumen
-  - action_restart
 
 session_config:
   session_expiration_time: 60

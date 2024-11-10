@@ -19,9 +19,14 @@ from django.urls import path
 from chatbot_app import views
 from django.views.decorators.csrf import csrf_exempt
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('chat/', views.chat_bot, name='chat_bot'),
-]
+    path('api/saldo/<str:numero_cuenta>/', views.consultar_saldo, name='consultar_saldo'),
+    path('api/estado-cuenta/<str:numero_cuenta>/', views.consultar_estado_cuenta, name='consultar_estado_cuenta'),
+    path('api/convertir/', views.convertir_moneda, name='convertir_moneda'),
+    path('api/expenses/', views.create_expense, name='create_expense'),
+    path('api/budget/', views.check_budget, name='check_budget'),
+] 
+

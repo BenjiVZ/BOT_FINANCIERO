@@ -1,0 +1,36 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-categoria",
+      "2": "I-categoria",
+      "3": "L-categoria",
+      "4": "U-categoria",
+      "5": "B-fecha",
+      "6": "I-fecha",
+      "7": "L-fecha",
+      "8": "U-fecha",
+      "9": "B-monto",
+      "10": "I-monto",
+      "11": "L-monto",
+      "12": "U-monto",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-categoria": 1,
+      "I-categoria": 2,
+      "L-categoria": 3,
+      "U-categoria": 4,
+      "B-fecha": 5,
+      "I-fecha": 6,
+      "L-fecha": 7,
+      "U-fecha": 8,
+      "B-monto": 9,
+      "I-monto": 10,
+      "L-monto": 11,
+      "U-monto": 12,
+      "O": 0
+    },
+    "num_tags": 13
+  }
+]
